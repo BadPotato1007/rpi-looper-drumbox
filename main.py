@@ -13,6 +13,14 @@ from gpiozero import LED, Button, RotaryEncoder
 # 2 = playing
 
 
+settime = 5
+timeperiod = 0.6
+def changetempo():
+    timeperiod = settime/4 
+
+
+
+
 # play leds
 greenled1 = LED(2)
 greenled2 = LED(3)
@@ -32,11 +40,10 @@ btn3 = Button(12)
 btn4 = Button(13)
 
 # some more vars
-rec1 = 1
-rec2 = 1
-rec3 = 1
-rec4 = 1
-
+rec1 = 0
+rec2 = 0
+rec3 = 0
+rec4 = 0
 
 def srec1():
     if rec1 == 0:
@@ -53,7 +60,6 @@ def srec1():
         greenled1.off
         # delete rec file
     print("started recording in channel 1")
-
 
 def srec2():
     if rec2 == 0:
@@ -72,7 +78,6 @@ def srec2():
         # delete rec file
     print("started recording in channel 2")
 
-
 def srec3():
     if rec3 == 0:
         rec3 = 1
@@ -88,7 +93,6 @@ def srec3():
         greenled3.off
         # delete rec file
     print("started recording in channel 3")
-
 
 def srec4():
     if rec4 == 0:
@@ -106,8 +110,7 @@ def srec4():
         # delete rec file
     print("started recording in channel 1")
 
-
-btn1.when_pressed = srec1()
-btn2.when_pressed = srec2()
-btn3.when_pressed = srec3()
-btn4.when_pressed = srec4()
+btn1.when_pressed = srec1
+btn2.when_pressed = srec2
+btn3.when_pressed = srec3
+btn4.when_pressed = srec4
