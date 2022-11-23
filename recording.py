@@ -7,10 +7,10 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
 
-rec = "rec2_file.wav"
+rec = "rec3_file.wav"
 
 
-settime = 5
+settime = 4
 timeperiod = 0.6
 def changetempo():
     timeperiod = settime/4 
@@ -40,7 +40,7 @@ stream.stop_stream()
 stream.close()
 p.terminate()
 
-wf = wave.open(rec1_file, 'wb')
+wf = wave.open(rec, 'wb')
 wf.setnchannels(CHANNELS)
 wf.setsampwidth(p.get_sample_size(FORMAT))
 wf.setframerate(RATE)
