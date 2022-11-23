@@ -63,7 +63,7 @@ def recording():
     mixed1 = mixed.overlay(audio3)         #combine , superimpose audio files
     #If you need to save mixed file
     mixed1.export("mixed.wav", format='wav') #export mixed  audio file
-    if 
+    if rec
 
 
 def srec1():
