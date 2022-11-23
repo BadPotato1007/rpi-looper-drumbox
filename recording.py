@@ -7,7 +7,7 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
 
-rec1_file = "rec2_file.wav"
+rec = "rec2_file.wav"
 
 
 settime = 5
