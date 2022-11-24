@@ -27,6 +27,7 @@ btn_pressed = 0
 rotor = RotaryEncoder(16, 20, wrap=True)
 beat_time = 4
 beat_tempo = 120
+recorded = 0
 
 
 # some more vars
@@ -59,11 +60,32 @@ def recording():
     audio1 = AudioSegment.from_file("rec1_file.wav") #your first audio file
     audio2 = AudioSegment.from_file("rec2_file.wav") #your second audio file
     audio3 = AudioSegment.from_file("rec3_file.wav")
-    mixed = audio1.overlay(audio2) 
-    mixed1 = mixed.overlay(audio3)         #combine , superimpose audio files
-    #If you need to save mixed file
-    mixed1.export("mixed.wav", format='wav') #export mixed  audio file
-    if rec
+    audio4 = AudioSegment.from_file("rec4_file.wav")
+    audio5 = AudioSegment.from_file("rec5_file.wav")
+    audio6 = AudioSegment.from_file("rec6_file.wav")
+    audio7 = AudioSegment.from_file("rec7_file.wav")
+    audio8 = AudioSegment.from_file("rec8_file.wav")
+    if recorded == 1:
+        mixed = audio1.overlay(audio2)
+        mixed.export("mixed.wav", format='wav') #export mixed  audio file
+    elif recorded == 2:
+        mixed = audio1.overlay(audio2)
+        mixed1 = mixed.overlay(audio3)
+        mixed1.export("mixed.wav", format='wav') #export mixed  audio file
+    elif recorded == 3:
+        mixed = audio1.overlay(audio2)
+        mixed1 = mixed.overlay(audio3)
+        mixed2 = mixed1.overlay(audio4)
+        mixed2.export("mixed.wav", format='wav') #export mixed  audio file
+    elif recorded == 4:
+        mixed = audio1.overlay(audio2)
+        mixed1 = mixed.overlay(audio3)
+        mixed2 = mixed1.overlay(audio4)
+        mixed3 = mixed1.overlay(audio5)
+        mixed3.export("mixed.wav", format='wav') #export mixed  audio file
+    
+                 
+    
 
 
 def srec1():
