@@ -3,6 +3,9 @@ from pydub.playback import play
 from gpiozero import LED, Button, RotaryEncoder
 import pyaudio
 import wave
+from pi74HC595 import pi74HC595
+
+
 
 
 # rec numbers meanings
@@ -21,6 +24,9 @@ btn5 = Button(6)
 btn6 = Button(7)
 btn7 = Button(8)
 btn8 = Button(9)
+
+#the leds
+shift_register = pi74HC595(7, 37, 22)
 
 #some more vars
 btn_pressed = 0
