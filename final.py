@@ -97,6 +97,22 @@ def mix():
         mixed = mixed.overlay(audio7)
         mixed = mixed.overlay(audio8)
         mixed.export("mixed.wav", format='wav') #export mixed  audio file
+    elif rec2 == 3:
+        mixed = audio1.overlay(audio3)
+        mixed = mixed.overlay(audio4)
+        mixed = mixed.overlay(audio5)
+        mixed = mixed.overlay(audio6)
+        mixed = mixed.overlay(audio7)
+        mixed = mixed.overlay(audio8)
+        mixed.export("mixed.wav", format='wav') #export mixed  audio file
+    elif rec2 == 3:
+        mixed = audio1.overlay(audio2)
+        mixed = mixed.overlay(audio4)
+        mixed = mixed.overlay(audio5)
+        mixed = mixed.overlay(audio6)
+        mixed = mixed.overlay(audio7)
+        mixed = mixed.overlay(audio8)
+        mixed.export("mixed.wav", format='wav') #export mixed  audio file
     
     
                  
