@@ -33,7 +33,7 @@ btn_pressed = 0
 rotor = RotaryEncoder(16, 20, wrap=True)
 beat_time = 4
 beat_tempo = 120
-recorded = 0
+rec1 = 0
 
 
 # some more vars
@@ -62,7 +62,7 @@ def set_timeperiod():
 
 
 
-def recording():
+def mix():
     audio1 = AudioSegment.from_file("rec1_file.wav") #your first audio file
     audio2 = AudioSegment.from_file("rec2_file.wav") #your second audio file
     audio3 = AudioSegment.from_file("rec3_file.wav")
@@ -71,27 +71,18 @@ def recording():
     audio6 = AudioSegment.from_file("rec6_file.wav")
     audio7 = AudioSegment.from_file("rec7_file.wav")
     audio8 = AudioSegment.from_file("rec8_file.wav")
-    if recorded == 1:
+    if rec1 == 2:
         mixed = audio1.overlay(audio2)
+        mixed = mixed.overlay(audio3)
+        mixed = mixed.overlay(audio4)
+        mixed = mixed.overlay(audio5)
+        mixed = mixed.overlay(audio6)
+        mixed = mixed.overlay(audio7)
+        mixed = mixed.overlay(audio8)
         mixed.export("mixed.wav", format='wav') #export mixed  audio file
-    elif recorded == 2:
+    elif rec2 == 2:
         mixed = audio1.overlay(audio2)
         mixed1 = mixed.overlay(audio3)
-        mixed1.export("mixed.wav", format='wav') #export mixed  audio file
-    elif recorded == 3:
-        mixed = audio1.overlay(audio2)
-        mixed1 = mixed.overlay(audio3)
-        mixed2 = mixed1.overlay(audio4)
-        mixed2.export("mixed.wav", format='wav') #export mixed  audio file
-    elif recorded == 4:
-        mixed = audio1.overlay(audio2)
-        mixed1 = mixed.overlay(audio3)
-        mixed2 = mixed1.overlay(audio4)
-        mixed3 = mixed1.overlay(audio5)
-        
-        
-        
-        
         mixed3.export("mixed.wav", format='wav') #export mixed  audio file
     
                  
@@ -101,11 +92,9 @@ def recording():
 def srec1():
     if rec1 == 0:
         rec1 = 1
-        btn_pressed = 1
         record()
     elif rec1 == 1:
         rec1 = 2
-        btn_pressed = 1
         play()
     elif rec1 == 2:
         rec1 = 3
@@ -116,11 +105,9 @@ def srec1():
 def srec2():
     if rec2 == 0:
         rec2 = 1
-        btn_pressed = 2
         record()
     elif rec2 == 1:
         rec2 = 2
-        btn_pressed = 2
         play()
     elif rec2 == 2:
         rec2 = 3
@@ -131,11 +118,9 @@ def srec2():
 def srec3():
     if rec3 == 0:
         rec3 = 1
-        btn_pressed = 3
         record()
     elif rec3 == 1:
         rec3 = 2
-        btn_pressed = 3
         play()
     elif rec3 == 2:
         rec3 = 3
@@ -146,11 +131,9 @@ def srec3():
 def srec4():
     if rec4 == 0:
         rec4 = 1
-        btn_pressed = 4
         record()
     elif rec4 == 1:
         rec4 = 2
-        btn_pressed = 4
         play()
     elif rec4 == 2:
         rec4 = 3
@@ -161,11 +144,9 @@ def srec4():
 def srec5():
     if rec5 == 0:
         rec5 = 1
-        btn_pressed = 5
         record()
     elif rec5 == 1:
         rec5 = 2
-        btn_pressed = 5
         play()
     elif rec5 == 2:
         rec5 = 3
@@ -176,11 +157,9 @@ def srec5():
 def srec6():
     if rec6 == 0:
         rec6 = 1
-        btn_pressed = 6
         record()
     elif rec6 == 1:
         rec6 = 2
-        btn_pressed = 6
         play()
     elif rec6 == 2:
         rec6 = 3
@@ -191,11 +170,9 @@ def srec6():
 def srec7():
     if rec7 == 0:
         rec7 = 1
-        btn_pressed = 7
         record()
     elif rec7 == 1:
         rec7 = 2
-        btn_pressed = 7
         play()
     elif rec7 == 2:
         rec7 = 3
@@ -206,11 +183,9 @@ def srec7():
 def srec8():
     if rec8 == 0:
         rec8 = 1
-        btn_pressed = 8
         record()
     elif rec8 == 1:
         rec8 = 2
-        btn_pressed = 8
         play()
     elif rec8 == 2:
         rec8 = 3
