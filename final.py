@@ -4,7 +4,7 @@ from gpiozero import LED, Button, RotaryEncoder
 import pyaudio
 import wave
 from pi74HC595 import pi74HC595
-
+import Adafruit_CharLCD as LCD
 
 
 
@@ -34,6 +34,25 @@ rotor = RotaryEncoder(16, 20, wrap=True)
 beat_time = 4
 beat_tempo = 120
 rec1 = 0
+beat_count = 0
+
+
+
+
+# Raspberry Pi pin setup
+lcd_rs = 25
+lcd_en = 24
+lcd_d4 = 23
+lcd_d5 = 17
+lcd_d6 = 18
+lcd_d7 = 22
+lcd_backlight = 2
+
+# Define LCD column and row size for 16x2 LCD.
+lcd_columns = 16
+lcd_rows = 2
+
+lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_columns, lcd_rows, lcd_backlight)
 
 
 # some more vars
@@ -55,10 +74,8 @@ def set_timeperiod():
     beat_tempo = rotor.steps
     beat_time = beat_tempo/15
     print("set the bet time to "+ beat_tempo +" and the beat tempo to "+ beat_tempo)
+    led()
     
-
-
-
 
 
 
@@ -71,23 +88,23 @@ def mix():
     audio6 = AudioSegment.from_file("rec6_file.wav")
     audio7 = AudioSegment.from_file("rec7_file.wav")
     audio8 = AudioSegment.from_file("rec8_file.wav")
-    if rec1 == 2:
-        mixed = audio1.overlay(audio2)
-        mixed = mixed.overlay(audio3)
+    if rec1 == 3:
+        
+        mixed = audio2.overlay(audio3)
         mixed = mixed.overlay(audio4)
         mixed = mixed.overlay(audio5)
         mixed = mixed.overlay(audio6)
         mixed = mixed.overlay(audio7)
         mixed = mixed.overlay(audio8)
         mixed.export("mixed.wav", format='wav') #export mixed  audio file
-    elif rec2 == 2:
-        mixed = audio1.overlay(audio2)
-        mixed1 = mixed.overlay(audio3)
-        mixed3.export("mixed.wav", format='wav') #export mixed  audio file
+    
     
                  
     
-
+def led():
+    lcd.message('tempo '+ beat_tempo + '    ' + beat_time + '\n' + beat_count )
+    time.sleep(1)
+    lcd.clear()
 
 def srec1():
     if rec1 == 0:
