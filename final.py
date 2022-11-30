@@ -24,6 +24,7 @@ btn5 = Button(6)
 btn6 = Button(7)
 btn7 = Button(8)
 btn8 = Button(9)
+btntest = Button(10)
 
 #the leds
 shift_register = pi74HC595(7, 37, 22)
@@ -266,6 +267,12 @@ def srec8():
     print("Button 8 was pressed")
 
 
+while True:
+    play("mixed.wav")
+    
+def testfunc():
+    play() 
+
 
 
 rotor.when_rotated = set_timeperiod
@@ -279,3 +286,5 @@ btn5.when_pressed = srec5
 btn6.when_pressed = srec6
 btn7.when_pressed = srec7
 btn8.when_pressed = srec8
+
+btntest.when_pressed = testfunc
