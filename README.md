@@ -7,3 +7,7 @@ https://pinout.xyz/pinout/wiringpi# <br>
 https://gpiozero.readthedocs.io/en/stable/ <br>
 https://gpiozero.readthedocs.io/en/stable/ <br>
 
+
+#how to runthe code
+1.
+
