@@ -20,7 +20,7 @@ def shift_update_matrix(input_Col,Column_PIN,input_Row,Row_PIN,clock,latch):
   GPIO.output(clock,1)
 
   #load data in reverse order
-  for i in range(3, -1, -1):
+  for i in range(7, -1, -1):
     GPIO.output(clock,0)
     #instead of controlling only 1 shift register, we drive both together
     GPIO.output(Column_PIN, int(input_Col[i]))

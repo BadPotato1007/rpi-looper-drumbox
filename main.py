@@ -1,116 +1,129 @@
-import pyaudio
-import numpy as np
-import time
-import os
-import RPi.GPIO
-import pygame
-import wave
+
+
+
+
+
+print('Starting up...')
+
+
+
+##################################################################
+##                             IMPORTS                          ##
+##################################################################
+
+
+from pydub import AudioSegment
+from pydub.playback import play
 from gpiozero import LED, Button, RotaryEncoder
+import pyaudio
+import wave
+from pi74HC595 import pi74HC595
+import Adafruit_CharLCD as LCD
+
 
 # rec numbers meanings
 # 0 = empty
 # 1 = recording
 # 2 = playing
-
-
-settime = 5
-timeperiod = 0.6
-def changetempo():
-    timeperiod = settime/4 
+# 3 = muted
 
 
 
+##################################################################
+##                    DECLARING THE CONNECTIONS                 ##
+##################################################################
 
-# play leds
-greenled1 = LED(2)
-greenled2 = LED(3)
-greenled3 = LED(4)
-greenled4 = LED(5)
 
-# recording leds
-redled1 = LED(6)
-redled2 = LED(7)
-redled3 = LED(8)
-redled4 = LED(9)
 
-# recording buttons
-btn1 = Button(10)
-btn2 = Button(11)
-btn3 = Button(12)
-btn4 = Button(13)
+############## RECORDING BUTTONS ##############
 
-# some more vars
-rec1 = 0
-rec2 = 0
-rec3 = 0
-rec4 = 0
+btn1 = Button(2)
+btn2 = Button(3)
+btn3 = Button(4)
+btn4 = Button(5)
+btn5 = Button(6)
+btn6 = Button(7)
+btn7 = Button(8)
+btn8 = Button(9)
 
-def srec1():
-    if rec1 == 0:
-        rec1 = 1
-        redled1.on
-        # rec function start
-    elif rec1 == 1:
-        rec1 = 2
-        redled1.off
-        greenled1.on
-        # rec function stop + play
-    elif rec1 == 2:
-        rec1 = 0
-        greenled1.off
-        # delete rec file
-    print("started recording in channel 1")
+################### GREEN LEDS ###################
 
-def srec2():
-    if rec2 == 0:
-        rec2 = 1
-        redled2.on
-        # rec function start
-    elif rec2 == 1:
-        rec2 = 2
-        redled2.off
-        greenled1.on
-        # rec function stop + play
-    elif rec2 == 2:
-        rec2 = 0
-        rec2 = 0
-        greenled2.off
-        # delete rec file
-    print("started recording in channel 2")
+r1 = 0
+r2 = 0
+r3 = 0
+r4 = 0
+r5 = 0
+r6 = 0
+r7 = 0
+r8 = 0
+r9 = 0
+r10 = 0
+r11 = 0
+r12 = 0
+r13 = 0
+r14 = 0
+r15 = 0
+r16 = 0
 
-def srec3():
-    if rec3 == 0:
-        rec3 = 1
-        redled3.on
-        # rec function start
-    elif rec3 == 1:
-        rec3 = 2
-        redled3.off
-        greenled3.on
-        # rec function stop + play
-    elif rec3 == 2:
-        rec3 = 0
-        greenled3.off
-        # delete rec file
-    print("started recording in channel 3")
 
-def srec4():
-    if rec4 == 0:
-        rec4 = 1
-        redled4.on
-        # rec function start
-    elif rec4 == 1:
-        rec4 = 2
-        redled4.off
-        greenled4.on
-        # rec function stop + play
-    elif rec4 == 2:
-        rec4 = 0
-        greenled4.off
-        # delete rec file
-    print("started recording in channel 1")
+################## GREEN LEDS ##################
 
-btn1.when_pressed = srec1
-btn2.when_pressed = srec2
-btn3.when_pressed = srec3
-btn4.when_pressed = srec4
+g1 = 0
+g2 = 0
+g3 = 0
+g4 = 0
+g5 = 0
+g6 = 0
+g7 = 0
+g8 = 0
+g9 = 0
+g10 = 0
+g11 = 0
+g12 = 0
+g13 = 0
+g14 = 0
+g15 = 0
+g16 = 0
+
+
+################### BLUE LEDS ##################
+
+b1 = 0
+b2 = 0
+b3 = 0
+b4 = 0
+b5 = 0
+b6 = 0
+b7 = 0
+b8 = 0
+b9 = 0
+b10 = 0
+b11 = 0
+b12 = 0
+b13 = 0
+b14 = 0
+b15 = 0
+b16 = 0
+
+#################### THE LCD ###################
+
+import drivers
+from time import sleep
+
+# Load the driver and set it to "display"
+# If you use something from the driver library use the "display." prefix first
+display = drivers.Lcd()
+
+# Main body of code
+while True:
+    # Remember that your sentences can only be 16 characters long!
+    print("Writing to display")
+    display.lcd_display_string("Greetings Human!", 1)  # Write line of text to first line of display
+    display.lcd_display_string("Demo Pi Guy code", 2)  # Write line of text to second line of display
+    sleep(2)                                           # Give time for the message to be read
+    display.lcd_display_string("I am a display!", 1)   # Refresh the first line of display with a different message
+    sleep(2)                                           # Give time for the message to be read
+    display.lcd_clear()                                # Clear the display of any data
+    sleep(2)                                           # Give time for the message to be read
+        
+

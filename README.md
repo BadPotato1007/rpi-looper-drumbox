@@ -6,8 +6,8 @@ https://docs.sunfounder.com/projects/electronic-kit/en/latest/lesson_18_driving_
 https://pinout.xyz/pinout/wiringpi# <br>
 https://gpiozero.readthedocs.io/en/stable/ <br>
 https://gpiozero.readthedocs.io/en/stable/ <br>
+https://github.com/the-raspberry-pi-guy/lcd <br>
 
-
-#how to runthe code
-1.
+# how to runthe code
+- 
 
