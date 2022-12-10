@@ -129,11 +129,19 @@ beat_time = 1
 ##################################################################
 
 
+
+
+
 #################### ROTRY ENCODER ###################
 def set_timeperiod():
     beat_tempo = rotor.steps
     beat_time = beat_tempo/15
     print("set the bet time to "+ beat_tempo +" and the beat tempo to "+ beat_tempo)
+
+
+
+
+
 
 #################### THE LCD ###################
 display = drivers.Lcd()
@@ -150,56 +158,57 @@ def display():
 
 ################# MIXING ##################
 
+def mix():
+    blankaudio = AudioSegment.from_file("1sec.mp3") #the blank audio file
+    audio1 = AudioSegment.from_file("rec1_file.wav") #your first audio file
+    audio2 = AudioSegment.from_file("rec2_file.wav") #your second audio file
+    audio3 = AudioSegment.from_file("rec3_file.wav")
+    audio4 = AudioSegment.from_file("rec4_file.wav")
+    audio5 = AudioSegment.from_file("rec5_file.wav")
+    audio6 = AudioSegment.from_file("rec6_file.wav")
+    audio7 = AudioSegment.from_file("rec7_file.wav")
+    audio8 = AudioSegment.from_file("rec8_file.wav")
+    if rec1 == 2:
+        mixed = blankaudio.overlay(audio1)
+    else:
+        print("")
 
-blankaudio = AudioSegment.from_file("1sec.mp3") #the blank audio file
-audio1 = AudioSegment.from_file("rec1_file.wav") #your first audio file
-audio2 = AudioSegment.from_file("rec2_file.wav") #your second audio file
-audio3 = AudioSegment.from_file("rec3_file.wav")
-audio4 = AudioSegment.from_file("rec4_file.wav")
-audio5 = AudioSegment.from_file("rec5_file.wav")
-audio6 = AudioSegment.from_file("rec6_file.wav")
-audio7 = AudioSegment.from_file("rec7_file.wav")
-audio8 = AudioSegment.from_file("rec8_file.wav")
-if rec1 == 2:
-    mixed = blankaudio.overlay(audio1)
-else:
-    print("")
+    if rec2 == 2:
+        mixed = mixed.overlay(audio2)
+    else:
+        print("")
 
-if rec2 == 2:
-    mixed = mixed.overlay(audio2)
-else:
-    print("")
+    if rec3 == 2:
+        mixed = mixed.overlay(audio3)
+    else:
+        print("")
 
-if rec3 == 2:
-    mixed = mixed.overlay(audio3)
-else:
-    print("")
+    if rec4 == 2:
+        mixed = mixed.overlay(audio4)
+    else:
+        print("")
 
-if rec4 == 2:
-    mixed = mixed.overlay(audio4)
-else:
-    print("")
+    if rec5 == 2:
+        mixed = mixed.overlay(audio5)
+    else:
+        print("")
 
-if rec5 == 2:
-    mixed = mixed.overlay(audio5)
-else:
-    print("")
+    if rec6 == 2:
+        mixed = mixed.overlay(audio6)
+    else:
+        print("")
 
-if rec6 == 2:
-    mixed = mixed.overlay(audio6)
-else:
-    print("")
+    if rec7 == 2:
+        mixed = mixed.overlay(audio7)
+    else:
+        print("")
 
-if rec7 == 2:
-    mixed = mixed.overlay(audio7)
-else:
-    print("")
+    if rec8 == 2:
+        mixed = mixed.overlay(audio8)
+    else:
+        print("")
 
-if rec8 == 2:
-    mixed = mixed.overlay(audio8)
-else:
-    print("")
-
-mixed.export("mixed.wav", format='wav') #export mixed  audio file
-while True:
-    play(mixed)                             #play mixed audio file
+    mixed.export("mixed.wav", format='wav') #export mixed  audio file
+    while True:
+        play(mixed)                             #play mixed audio file
+        
