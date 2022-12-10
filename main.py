@@ -19,6 +19,8 @@ import pyaudio
 import wave
 from pi74HC595 import pi74HC595
 import Adafruit_CharLCD as LCD
+import drivers
+from time import sleep
 
 
 # rec numbers meanings
@@ -105,25 +107,24 @@ b14 = 0
 b15 = 0
 b16 = 0
 
+############ OTHER CONNECTIONS ############
+rotor = RotaryEncoder(16, 20, wrap=True)
+################### VARS ##################
+beat_tempo = 100
+beat_time = 1
+
+#################### ROTRY ENCODER ###################
+def set_timeperiod():
+    beat_tempo = rotor.steps
+    beat_time = beat_tempo/15
+    print("set the bet time to "+ beat_tempo +" and the beat tempo to "+ beat_tempo)
+
 #################### THE LCD ###################
-
-import drivers
-from time import sleep
-
-# Load the driver and set it to "display"
-# If you use something from the driver library use the "display." prefix first
 display = drivers.Lcd()
 
-# Main body of code
-while True:
-    # Remember that your sentences can only be 16 characters long!
+def display():
     print("Writing to display")
     display.lcd_display_string("Greetings Human!", 1)  # Write line of text to first line of display
     display.lcd_display_string("Demo Pi Guy code", 2)  # Write line of text to second line of display
-    sleep(2)                                           # Give time for the message to be read
-    display.lcd_display_string("I am a display!", 1)   # Refresh the first line of display with a different message
-    sleep(2)                                           # Give time for the message to be read
-    display.lcd_clear()                                # Clear the display of any data
-    sleep(2)                                           # Give time for the message to be read
-        
+
 
