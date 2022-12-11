@@ -106,6 +106,8 @@ b13 = 0
 b14 = 0
 b15 = 0
 b16 = 0
+
+
 ############ THE AUDIO FILES ############
 rec1 = 0
 rec2 = 0
@@ -116,13 +118,41 @@ rec6 = 0
 rec7 = 0
 rec8 = 0
 
-############ OTHER CONNECTIONS ############
-rotor = RotaryEncoder(16, 20, wrap=True)
+##################################################################
+##                        THE CONNECTIONS                       ##
+##################################################################
+rotor = RotaryEncoder(16, 20, wrap=True) #rotry encoder
 
-################### VARS ##################
+lcd_columns = 16 #lcd
+lcd_rows = 2 #lcd
+
+
+
+# Raspberry Pi pin setup
+lcd_rs = 25
+lcd_en = 24
+lcd_d4 = 23
+lcd_d5 = 17
+lcd_d6 = 18
+lcd_d7 = 22
+lcd_backlight = 2
+
+# Define LCD column and row size for 16x2 LCD.
+lcd_columns = 16
+lcd_rows = 2
+
+
+
+lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_columns, lcd_rows, lcd_backlight) #lcd
+
+
+
+##################################################################
+##                            VARIABLES                         ##
+##################################################################
 beat_tempo = 100
 beat_time = 1
-
+rec_in_file = "rec_in.wav"
 
 ##################################################################
 ##                   THE DIFFERENT PROGRAMS USED                ##
@@ -132,10 +162,13 @@ beat_time = 1
 
 
 
-#################### ROTRY ENCODER ###################
+##################################################################
+##                        THE ROTRY ENCODER                     ##
+##################################################################
 def set_timeperiod():
     beat_tempo = rotor.steps
     beat_time = beat_tempo/15
+    timeperiod = beat_time/4 
     print("set the bet time to "+ beat_tempo +" and the beat tempo to "+ beat_tempo)
 
 
@@ -143,7 +176,9 @@ def set_timeperiod():
 
 
 
-#################### THE LCD ###################
+##################################################################
+##                          THE LCD CODE                        ##
+##################################################################
 display = drivers.Lcd()
 
 def display():
@@ -156,7 +191,9 @@ def display():
 
 
 
-################# MIXING ##################
+##################################################################
+##                       THE MIXING FUNCTION                    ##
+##################################################################
 
 def mix():
     blankaudio = AudioSegment.from_file("1sec.mp3") #the blank audio file
@@ -171,44 +208,291 @@ def mix():
     if rec1 == 2:
         mixed = blankaudio.overlay(audio1)
     else:
-        print("")
+        print("--> mixed 1")
 
     if rec2 == 2:
         mixed = mixed.overlay(audio2)
     else:
-        print("")
+        print("--> mixed 2")
 
     if rec3 == 2:
         mixed = mixed.overlay(audio3)
     else:
-        print("")
+        print("--> mixed 3")
 
     if rec4 == 2:
         mixed = mixed.overlay(audio4)
     else:
-        print("")
+        print("--> mixed 4")
 
     if rec5 == 2:
         mixed = mixed.overlay(audio5)
     else:
-        print("")
+        print("--> mixed 5")
 
     if rec6 == 2:
         mixed = mixed.overlay(audio6)
     else:
-        print("")
+        print("--> mixed 6")
 
     if rec7 == 2:
         mixed = mixed.overlay(audio7)
     else:
-        print("")
+        print("--> mixed 7")
 
     if rec8 == 2:
         mixed = mixed.overlay(audio8)
     else:
-        print("")
-
+        print("--> mixed 8")
+    
+    print("Mixing audio...")
     mixed.export("mixed.wav", format='wav') #export mixed  audio file
-    while True:
-        play(mixed)                             #play mixed audio file
+    print("Audio mixed...")
+
+
+
+##################################################################
+##                         PLAY THE AUDIO                       ##
+##################################################################
+def play_audio():
+    print("Playing audio...")
+    mixed_file = AudioSegment.from_file("mixed.wav") #load mixed audio file
+    loop_count = 0
+    while loop_count<=200:
+        play(mixed_file)                             #play mixed audio file
+        loop_count = loop_count + 1                  #loop the audio 200 times
+
+
+
+
+
+##################################################################
+##                           UPDATE LEDS                        ##
+##################################################################
+
+
+
+def update_leds():
+    print("updating leds")              #update the leds
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##################################################################
+##                       RECORDING FUNCTION                     ##
+##################################################################
+
+
+
+
+def record():                          #record function
+    CHUNK = 1024
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 1
+    RATE = 44100
+    
+    p = pyaudio.PyAudio()
+
+    stream = p.open(format=FORMAT,
+                    channels=CHANNELS,
+                    rate=RATE,
+                    input=True,
+                    frames_per_buffer=CHUNK)
+
+    print("* recording")
+
+    frames = []
+
+    for i in range(0, int(RATE / CHUNK * beat_time)):
+        data = stream.read(CHUNK)
+        frames.append(data)
+
+    print("* done recording")
+
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+    wf = wave.open(rec_in_file, 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(p.get_sample_size(FORMAT))
+    wf.setframerate(RATE)
+    wf.writeframes(b''.join(frames))
+    wf.close()
+
+
+
+
+##################################################################
+##                     THE RECORDING FUNCTIONS                  ##
+##################################################################
+
+def rec_func1():                                 #recording function 1
+    if rec1 == 0:
+        rec1 = 1
+        print("recording... CHANNEL 1")
+        r1 = 1
+        g1 = 0
+        b1 = 0
+        rec_in_file = "rec1_file.wav"
+        record()
+        update_leds()
+        ###############################
+    elif rec1 == 1:
+        rec1 = 2
+        print("playing... CHANNEL 1")
+        r1 = 0
+        g1 = 1
+        b1 = 0
+        play(rec1_file)
+        update_leds()
+        ###############################
+    elif rec1 == 2:
+        rec1 = 3
+        r1 = 0
+        g1 = 0
+        b1 = 1
+        print("muted... CHANNEL 1")
+        update_leds()
+        ################################
         
+def rec_func2():                                 #recording function 2
+    if rec2 == 0:
+        rec2 = 1
+        print("recording... CHANNEL 2")
+        r2 = 1
+        g2 = 0
+        b2 = 0
+        rec_in_file = "rec2_file.wav"
+        record()
+        update_leds()
+        ################################
+    elif rec2 == 1:
+        rec2 = 2
+        print("playing... CHANNEL 2")
+        r2 = 0
+        g2 = 1
+        b2 = 0
+        play(rec2_file)
+        update_leds()
+        ################################
+    elif rec2 == 2:
+        rec2 = 3
+        r2 = 0
+        g2 = 0
+        b2 = 1
+        print("muted... CHANNEL 2")
+        update_leds()
+        ################################
+
+def rec_func3():                                 #recording function 3
+    if rec3 == 0:
+        rec3 = 1
+        print("recording... CHANNEL 3")
+        r3 = 1
+        g3 = 0
+        b3 = 0
+        rec_in_file = "rec3_file.wav"
+        record()
+        update_leds()
+        ################################
+    elif rec3 == 1:
+        rec3 = 2
+        print("playing... CHANNEL 3")
+        r3 = 0
+        g3 = 1
+        b3 = 0
+        play(rec3_file)
+        update_leds()
+    elif rec3 == 2:
+        rec3 = 3
+        r3 = 0
+        g3 = 0
+        b3 = 1
+        print("muted... CHANNEL 3")
+        update_leds()
+        ################################
+
+def rec_func4():                                 #recording function 4
+    if rec4 == 0:
+        rec4 = 1
+        print("recording... CHANNEL 4")
+        r4 = 1
+        g4 = 0
+        b4 = 0
+        rec_in_file = "rec4_file.wav"
+        record()
+        update_leds()
+        ################################
+    elif rec4 == 1:
+        rec4 = print("playing... CHANNEL 4")     
+        r4 = 0
+        g4 = 1
+        b4 = 0
+        play(rec4_file)
+        update_leds()
+        ################################
+    elif rec4 == 2:
+        rec4 = 3
+        r4 = 0
+        g4 = 0
+        b4 = 1
+        print("muted... CHANNEL 4")
+        update_leds()
+        ################################
+        
+
+        
+           
+        
+            
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#################### RUNNING THE FUNCTIONS ###################
+rotor.when_rotated = set_timeperiod
+btn1.when_pressed = rec_func1
+btn2.when_pressed = rec_func2
+btn3.when_pressed = rec_func3
+btn4.when_pressed = rec_func4
+btn5.when_pressed = rec_func5
+btn6.when_pressed = rec_func6
+btn7.when_pressed = rec_func7
+btn8.when_pressed = rec_func8
+
