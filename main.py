@@ -21,6 +21,7 @@ from pi74HC595 import pi74HC595
 import Adafruit_CharLCD as LCD
 import drivers
 from time import sleep
+from pad4pi import rpi_gpio
 
 
 # rec numbers meanings
@@ -153,6 +154,7 @@ lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_c
 beat_tempo = 100
 beat_time = 1
 rec_in_file = "rec_in.wav"
+beat_time_milliseconds = beat_time * 1000
 
 ##################################################################
 ##                   THE DIFFERENT PROGRAMS USED                ##
@@ -170,6 +172,8 @@ def set_timeperiod():
     beat_time = beat_tempo/15
     timeperiod = beat_time/4 
     print("set the bet time to "+ beat_tempo +" and the beat tempo to "+ beat_tempo)
+    blankaudio = AudioSegment.silent(duration=beat_time_milliseconds) #the blank audio file
+    mixed = blankaudio
 
 
 
@@ -196,7 +200,6 @@ def display():
 ##################################################################
 
 def mix():
-    blankaudio = AudioSegment.from_file("1sec.mp3") #the blank audio file
     audio1 = AudioSegment.from_file("rec1_file.wav") #your first audio file
     audio2 = AudioSegment.from_file("rec2_file.wav") #your second audio file
     audio3 = AudioSegment.from_file("rec3_file.wav")
@@ -205,6 +208,7 @@ def mix():
     audio6 = AudioSegment.from_file("rec6_file.wav")
     audio7 = AudioSegment.from_file("rec7_file.wav")
     audio8 = AudioSegment.from_file("rec8_file.wav")
+    
     if rec1 == 2:
         mixed = blankaudio.overlay(audio1)
     else:
@@ -355,7 +359,7 @@ def rec_func1():                                 #recording function 1
         r1 = 0
         g1 = 1
         b1 = 0
-        play(rec1_file)
+        play_audio()
         update_leds()
         ###############################
     elif rec1 == 2:
@@ -413,7 +417,7 @@ def rec_func3():                                 #recording function 3
         r3 = 0
         g3 = 1
         b3 = 0
-        play(rec3_file)
+        play_audio()
         update_leds()
     elif rec3 == 2:
         rec3 = 3
@@ -436,11 +440,12 @@ def rec_func4():                                 #recording function 4
         update_leds()
         ################################
     elif rec4 == 1:
+        rec4 = 2
         rec4 = print("playing... CHANNEL 4")     
         r4 = 0
         g4 = 1
         b4 = 0
-        play(rec4_file)
+        play_audio()
         update_leds()
         ################################
     elif rec4 == 2:
@@ -451,6 +456,115 @@ def rec_func4():                                 #recording function 4
         print("muted... CHANNEL 4")
         update_leds()
         ################################
+        
+def func5():                                 #recording function 5
+    if rec5 == 0:
+        rec5 = 1
+        print("recording... CHANNEL 5")
+        r5 = 1
+        g5 = 0
+        b5 = 0
+        rec_in_file = "rec5_file.wav"
+        record()
+        update_leds()
+        ################################
+    elif rec5 == 1:
+        rec5 = 2
+        print("playing... CHANNEL 5")
+        r5 = 0
+        g5 = 1
+        b5 = 0
+        play_audio()
+        update_leds()
+    elif rec5 == 2:
+        rec5 = 3
+        r5 = 0
+        g5 = 0
+        b5 = 1
+        print("muted... CHANNEL 5")
+        update_leds()
+        ################################
+    
+def func6():                                 #recording function 6
+    if rec6 == 0:
+        rec6 = 1
+        print("recording... CHANNEL 6")
+        r6 = 1
+        g6 = 0
+        b6 = 0
+        rec_in_file = "rec6_file.wav"
+        record()
+        update_leds()
+        ################################
+    elif rec6 == 1:
+        rec6 = 2
+        rec6 = print("playing... CHANNEL 6")
+        r6 = 0
+        g6 = 1
+        b6 = 0
+        play_audio()
+        update_leds()
+        ################################
+    elif rec6 == 2:
+        rec6 = 3
+        r6 = 0
+        g6 = 0
+        b6 = 1
+        print("muted... CHANNEL 6")
+        update_leds()
+        ################################
+
+def func7():                                 #recording function 7
+    if rec7 == 0:
+        rec7 = 1
+        print("recording... CHANNEL 7")
+        r7 = 1
+        g7 = 0
+        b7 = 0
+        rec_in_file = "rec7_file.wav"
+        record()
+        update_leds()
+        ################################
+    elif rec7 == 1:
+        rec7 = 2
+        rec7 = print("playing... CHANNEL 7")
+        r7 = 0
+        g7 = 1
+        b7 = 0
+        play_audio()
+        update_leds()
+        ################################
+
+def func8():                                 #recording function 8
+    if rec8 == 0:
+        rec8 = 1
+        print("recording... CHANNEL 8")
+        r8 = 1
+        g8 = 0
+        b8 = 0
+        rec_in_file = "rec8_file.wav"
+        record()
+        update_leds()
+        ################################
+    elif rec8 == 1:
+        rec8 = 2
+        rec8 = print("playing... CHANNEL 8")
+        r8 = 0
+        g8 = 1
+        b8 = 0
+        play_audio()
+        update_leds()
+        ################################
+    elif rec8 == 2:
+        rec8 = 3
+        r8 = 0
+        g8 = 0
+        b8 = 1
+        print("muted... CHANNEL 8")
+        update_leds()
+        ################################
+            
+            
         
 
         
