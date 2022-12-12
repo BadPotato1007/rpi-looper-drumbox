@@ -365,7 +365,7 @@ def rec_func1():                                 #recording function 1
     elif rec1 == 2:
         rec1 = 3
         r1 = 0
-        g1 = 0
+        g1 = 1
         b1 = 1
         print("muted... CHANNEL 1")
         update_leds()
@@ -388,13 +388,13 @@ def rec_func2():                                 #recording function 2
         r2 = 0
         g2 = 1
         b2 = 0
-        play(rec2_file)
+        play_audio()
         update_leds()
         ################################
     elif rec2 == 2:
         rec2 = 3
         r2 = 0
-        g2 = 0
+        g2 = 1
         b2 = 1
         print("muted... CHANNEL 2")
         update_leds()
@@ -422,7 +422,7 @@ def rec_func3():                                 #recording function 3
     elif rec3 == 2:
         rec3 = 3
         r3 = 0
-        g3 = 0
+        g3 = 1
         b3 = 1
         print("muted... CHANNEL 3")
         update_leds()
@@ -451,13 +451,13 @@ def rec_func4():                                 #recording function 4
     elif rec4 == 2:
         rec4 = 3
         r4 = 0
-        g4 = 0
+        g4 = 1
         b4 = 1
         print("muted... CHANNEL 4")
         update_leds()
         ################################
         
-def func5():                                 #recording function 5
+def rec_func5():                                 #recording function 5
     if rec5 == 0:
         rec5 = 1
         print("recording... CHANNEL 5")
@@ -479,13 +479,13 @@ def func5():                                 #recording function 5
     elif rec5 == 2:
         rec5 = 3
         r5 = 0
-        g5 = 0
+        g5 = 1
         b5 = 1
         print("muted... CHANNEL 5")
         update_leds()
         ################################
     
-def func6():                                 #recording function 6
+def rec_func6():                                 #recording function 6
     if rec6 == 0:
         rec6 = 1
         print("recording... CHANNEL 6")
@@ -508,13 +508,13 @@ def func6():                                 #recording function 6
     elif rec6 == 2:
         rec6 = 3
         r6 = 0
-        g6 = 0
+        g6 = 1
         b6 = 1
         print("muted... CHANNEL 6")
         update_leds()
         ################################
 
-def func7():                                 #recording function 7
+def rec_func7():                                 #recording function 7
     if rec7 == 0:
         rec7 = 1
         print("recording... CHANNEL 7")
@@ -534,8 +534,16 @@ def func7():                                 #recording function 7
         play_audio()
         update_leds()
         ################################
+    elif rec7 == 2:
+        rec7 = 3
+        r7 = 0
+        g7 = 1
+        b7 = 1
+        print("muted... CHANNEL 7")
+        update_leds()
+        ################################
 
-def func8():                                 #recording function 8
+def rec_func8():                                 #recording function 8
     if rec8 == 0:
         rec8 = 1
         print("recording... CHANNEL 8")
@@ -558,7 +566,7 @@ def func8():                                 #recording function 8
     elif rec8 == 2:
         rec8 = 3
         r8 = 0
-        g8 = 0
+        g8 = 1
         b8 = 1
         print("muted... CHANNEL 8")
         update_leds()
@@ -570,35 +578,6 @@ def func8():                                 #recording function 8
         
            
         
-            
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #################### RUNNING THE FUNCTIONS ###################
 rotor.when_rotated = set_timeperiod
 btn1.when_pressed = rec_func1
@@ -609,4 +588,3 @@ btn5.when_pressed = rec_func5
 btn6.when_pressed = rec_func6
 btn7.when_pressed = rec_func7
 btn8.when_pressed = rec_func8
-
