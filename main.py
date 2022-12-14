@@ -169,7 +169,7 @@ beat_time_milliseconds = beat_time * 1000
 ##################################################################
 def set_timeperiod():
     beat_tempo = rotor.steps
-    beat_time = beat_tempo/15
+    beat_time = (beat_tempo/15)*4
     timeperiod = beat_time/4 
     print("set the bet time to "+ beat_tempo +" and the beat tempo to "+ beat_tempo)
     blankaudio = AudioSegment.silent(duration=beat_time_milliseconds) #the blank audio file
@@ -186,9 +186,10 @@ def set_timeperiod():
 display = drivers.Lcd()
 
 def display():
+    beat_time = round(beat_time, 2) #round the beat time to 2 decimals
     beat_tempo_str = str(beat_tempo)
     beat_time_str = str(beat_time)
-    line = ("tempo: " + beat_tempo_str + "    " + beat_time_str + "s") #make the text to display on the lcd
+    line = ("tempo: " + beat_tempo_str + "   " + beat_time_str + "s") #make the text to display on the lcd
     print("Writing to display...")
     display.lcd_display_string(" DRUMBOX LOOPER ", 1)  # Write line of text to first line of display
     display.lcd_display_string(line, 2)  # Write line of text to second line of display
