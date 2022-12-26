@@ -1,31 +1,102 @@
-from threading import Event
-from colorzero import Color
-from gpiozero import RotaryEncoder, RGBLED, Button
-
-rotor = RotaryEncoder(16, 20, wrap=True, max_steps=180)
-rotor.steps = 160
-led = RGBLED(22, 23, 24, active_high=False)
-btn = Button(21, pull_up=False)
-led.color = Color('#f00')
-done = Event()
-
-def change_hue():
-    hue = rotor.steps
-    print(hue)
-
-def show_color():
-    print('Hue {led.color.hue.deg:.1f}° = {led.color.html}'.format(led=led))
-
-def stop_script():
-    print('Exiting')
-    done.set()
-
-print('Select a color by turning the knob')
-rotor.when_rotated = change_hue
-print('Push the button to see the HTML code for the color')
-btn.when_released = show_color
-print('Hold the button to exit')
-btn.when_held = stop_script
-done.wait()
-
 print('Starting up...')
+
+
+
+##################################################################
+##                             IMPORTS                          ##
+##################################################################
+
+
+from pydub import AudioSegment
+from pydub.playback import play
+from gpiozero import LED, Button, RotaryEncoder
+import pyaudio
+import wave
+from pi74HC595 import pi74HC595
+import Adafruit_CharLCD as LCD
+#import drivers
+from time import sleep
+from threading import Event
+import RPi.GPIO as gpio 
+#from pad4pi import rpi_gpio
+
+##################################################################
+##                         SOME DECLARATIONS                    ##
+##################################################################
+gpio.setmode(gpio.BCM)
+shift_register = pi74HC595()
+
+##################################################################
+##                             VARIABLES                        ##
+##################################################################
+done = Event()
+lcd_columns = 16
+lcd_rows = 2
+
+
+
+
+##################################################################
+##                          PI CONNECTIONS                      ##
+##################################################################
+##LCD
+lcd_rs = 25
+lcd_en = 24
+lcd_d4 = 23
+lcd_d5 = 17
+lcd_d6 = 18
+lcd_d7 = 22
+lcd_backlight = 2
+lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_columns, lcd_rows, lcd_backlight)
+#ROTARY ENCODER
+rotor = RotaryEncoder(16, 20, wrap=True, max_steps=180)
+#SHIFT REGISTER
+shift_register.set_ds(7) 
+shift_register.set_sh(37)
+shift_register.set_st(22)
+shift_register.set_daisy_chain(6)
+
+##################################################################
+##                          FUNCTIONS                           ##
+##################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#TO KEEP THE PROGRAM RUNNING FOREVER
+done.wait()
